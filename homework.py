@@ -45,7 +45,7 @@ class Training:
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
-        raise NotImplementedError('Определите run в %s.'
+        raise NotImplementedError('Определите get_spent_calories в %s.'
                                   % (self.__class__.__name__))
 
     def show_training_info(self) -> InfoMessage:
@@ -122,10 +122,10 @@ def read_package(workout_type: str, data: list) -> Training:
     }
     try:
         return training_dict[workout_type](*data)
-    except KeyError as ke:
-        raise KeyError(f'Код тренировки {ke} не найден. '
+    except KeyError:
+        raise KeyError(f'Код тренировки {workout_type} не найден. '
                        f'Ваш трекер умеет работать с кодами тренировок '
-                       f'{", ".join(list(training_dict.keys()))}.') from ke
+                       f'{", ".join(list(training_dict.keys()))}.') from None
 
 
 def main(training: Training) -> None:
